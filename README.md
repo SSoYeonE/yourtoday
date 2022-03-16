@@ -24,3 +24,13 @@
 - 기본 코드 작성(Dday / member / journal)   - 내일 다시 확인받기
 
   ![day1](https://user-images.githubusercontent.com/95202440/158411896-0726a21a-4261-4ac8-a6f5-26f797ca204c.JPG)
+
+## 220316
+
+- DB테이블 수정 및 데이터 넣고 테스트
+
+- 코드작성 추가 및 수정
+
+  - crud - create, read, update, delete,  + total
+
+  
