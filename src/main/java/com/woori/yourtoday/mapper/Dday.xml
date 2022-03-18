@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="Dday">
+
+	<!-- 쿼리를 xml로 작성하고 id:식별값  
+		  parameterType:우리가 전달할값 
+	     resultType : 받아오는값  -->
+	     
+	<!-- if test="key=='1'"  - 이렇게 쓰면 안된다 인식안된다 -->
+	
+	<select id="Dday_getList"  parameterType="DdayDto"  resultType="DdayDto">
+ 		select 
+ 			dday_title
+ 			,dday_contents
+ 			,dday_date
+ 			,dday_delyn
+			
+ 		from 
+ 		(
+	 		select
+				A.dday_title
+ 				,A.dday_contents
+ 				,A.dday_date
+ 				,A.dday_delyn
+				
+			    ,@rownum := @rownum+1 AS rnum
+				from dday A, (select @rownum:=0) B
+				
+				
+			<if test='key!=null and keyword!=null'>
+	
+				<if test='key=="1"'>
+				where title like concat('%', #{keyword} , '%') or
+				      contents like concat('%', #{keyword} , '%') or 
+				      writer like concat('%', #{keyword} , '%') 
+				</if>
+				
+				<if test='key=="2"'>
+				where title like concat('%', #{keyword} , '%')
+				</if>
+				
+				<if test='key=="3"'>
+				where contents like concat('%', #{keyword} , '%')
+				</if>
+				
+				<if test='key=="4"'>
+				where title like concat('%', #{keyword} , '%') or
+				      contents like concat('%', #{keyword} , '%') 
+				</if>
+				
+			</if> 
+				) A
+		limit #{start}, #{pageSize}    
+	</select>
+
+	
+	<select id="Dday_getTotal" parameterType="DdayDto" resultType="Integer">
+		select count(*) from Dday
+		<if test='key!=null and keyword!=null'>
+
+			<if test='key=="1"'>
+			where title like concat('%', #{keyword} , '%') or
+			      contents like concat('%', #{keyword} , '%') or 
+			      writer like concat('%', #{keyword} , '%') 
+			</if>
+			
+			<if test='key=="2"'>
+			where title like concat('%', #{keyword} , '%')
+			</if>
+			
+			<if test='key=="3"'>
+			where contents like concat('%', #{keyword} , '%')
+			</if>
+			
+			<if test='key=="4"'>
+			where title like concat('%', #{keyword} , '%') or
+			      contents like concat('%', #{keyword} , '%') 
+			</if>
+			
+		</if> 
+	</select>
+
+	
+	<insert id="Dday_insert" parameterType="DdayDto">
+		insert into Dday
+		( dday_title, dday_contents,dday_date,dday_delyn)
+		values
+		( #{dday_title}, #{dday_contents},#{dday_date},#{dday_delyn} )
+	</insert>
+	
+	<select id="Dday_getView"  parameterType="DdayDto"  resultType="DdayDto">
+ 		select
+ 				
+				A.dday_title
+				,A.dday_contents 
+				,A.dday_date
+				,A.dday_delyn
+			
+			
+		from Dday A where dday_seq=#{dday_seq}
+
+	</select>
+	
+	<delete id="Dday_delete" parameterType="DdayDto" >
+	delete from Dday where dday_seq=#{dday_seq}
+	</delete>
+	
+	<insert id="Dday_update" parameterType="DdayDto">
+	update Dday set 
+		dday_title = #{dday_title}, 
+		dday_contents = #{dday_contents},
+		dday_date = #{dday_date},
+		dday_delyn = #{dday_delyn}
+		where dday_seq=#{dday_seq}
+	</insert>
+
+		
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

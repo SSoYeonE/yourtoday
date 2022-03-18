@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="Journal">
+
+	<!-- 쿼리를 xml로 작성하고 id:식별값  
+		  parameterType:우리가 전달할값 
+	     resultType : 받아오는값  -->
+	     
+	<!-- if test="key=='1'"  - 이렇게 쓰면 안된다 인식안된다 -->
+	
+	<select id="Journal_getList"  parameterType="JournalDto"  resultType="JournalDto">
+ 		select 
+ 			note_title
+ 			,note_contents
+ 			,note_filename1
+ 			,note_filename2
+ 			,note_filename3
+ 			,note_regdate
+			,note_view
+			,note_delyn
+			
+ 		from 
+ 		(
+	 		select
+				A.note_title
+				,A.note_contents
+				,A.note_filename1 
+				,A.note_filename2
+				,A.note_filename3
+				,note_regdate
+				,note_view
+				,note_delyn
+				
+			    ,@rownum := @rownum+1 AS rnum
+				from journal A, (select @rownum:=0) B
+				
+				
+			<if test='key!=null and keyword!=null'>
+	
+				<if test='key=="1"'>
+				where title like concat('%', #{keyword} , '%') or
+				      contents like concat('%', #{keyword} , '%') or 
+				      writer like concat('%', #{keyword} , '%') 
+				</if>
+				
+				<if test='key=="2"'>
+				where title like concat('%', #{keyword} , '%')
+				</if>
+				
+				<if test='key=="3"'>
+				where contents like concat('%', #{keyword} , '%')
+				</if>
+				
+				<if test='key=="4"'>
+				where title like concat('%', #{keyword} , '%') or
+				      contents like concat('%', #{keyword} , '%') 
+				</if>
+				
+			</if> 
+				) A
+		limit #{start}, #{pageSize}    
+	</select>
+
+
+	
+	<select id="Journal_getTotal" parameterType="JournalDto" resultType="Integer">
+		select count(*) from Journal 
+		<if test='key!=null and keyword!=null'>
+
+			<if test='key=="1"'>
+			where title like concat('%', #{keyword} , '%') or
+			      contents like concat('%', #{keyword} , '%') or 
+			      writer like concat('%', #{keyword} , '%') 
+			</if>
+			
+			<if test='key=="2"'>
+			where title like concat('%', #{keyword} , '%')
+			</if>
+			
+			<if test='key=="3"'>
+			where contents like concat('%', #{keyword} , '%')
+			</if>
+			
+			<if test='key=="4"'>
+			where title like concat('%', #{keyword} , '%') or
+			      contents like concat('%', #{keyword} , '%') 
+			</if>
+			
+		</if> 
+	</select>
+
+	
+	<insert id="Journal_insert" parameterType="JournalDto">
+		insert into Journal
+		(note_title, note_contents, note_filename1,note_filename2,note_filename3,note_regdate,note_view,note_delyn)
+		values
+		(#{note_title}, #{note_contents}, #{note_filename1},#{note_filename2},#{note_filename3},now(),#{note_view},#{note_delyn})
+	</insert>
+	
+	<select id="Journal_getView"  parameterType="JournalDto"  resultType="JournalDto">
+ 		select
+			
+				A.title
+				,A.note_contents 
+				,A.note_filename1
+				,A.note_filename2
+				,A.note_filename3
+				,A.note_regdate
+				,A.note_view
+				,A.note_delyn
+			
+		from Journal A where note_seq=#{note_seq}
+
+	</select>
+	
+	<delete id="Journal_delete" parameterType="JournalDto" >
+	delete from Journal where note_seq=#{note_seq}
+	</delete>
+	
+	<update id="Journal_update" parameterType="JournalDto">
+		update journal set 
+		note_title = #{note_title}, 
+		note_contents = #{note_contents}, 
+		note_filename1 = #{note_filename1},
+		note_filename2 = #{note_filename2},
+		note_filename3 = #{note_filename3},
+		note_moddate = now(),
+		note_view = #{note_view},
+		note_delyn=#{note_delyn}
+		
+		where note_seq=#{note_seq}
+	</update>
+	
+			
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

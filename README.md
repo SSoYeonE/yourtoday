@@ -33,4 +33,14 @@
 
   - crud - create, read, update, delete,  + total
 
-  
+
+
+## 220318
+
+- 작성한 코드들(member, journal, dday- crud)  postman에서 test완료
+
+- 홈페이지 구성 및 기획 수정 
+
+  - journal 컬럼에 있는  공개여부로(view)  갤러리 게시판에 익명으로 등록할 수 있음.
+
+  ![공개일기장(갤러리)2](https://user-images.githubusercontent.com/95202440/159017912-fb3892e6-04a1-4717-b1df-150f82900129.jpg)
