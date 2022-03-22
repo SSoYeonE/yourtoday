@@ -44,3 +44,7 @@
   - journal 컬럼에 있는  공개여부로(view)  갤러리 게시판에 익명으로 등록할 수 있음.
 
   ![공개일기장(갤러리)2](https://user-images.githubusercontent.com/95202440/159017912-fb3892e6-04a1-4717-b1df-150f82900129.jpg)
+
+## 220322
+
+- bootstrap관련 폴더 전부 삭제 (css, image폴더만 남김)

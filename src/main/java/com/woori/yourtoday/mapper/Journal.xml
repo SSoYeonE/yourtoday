@@ -40,25 +40,14 @@
 				
 			<if test='key!=null and keyword!=null'>
 	
-				<if test='key=="1"'>
-				where title like concat('%', #{keyword} , '%') or
-				      contents like concat('%', #{keyword} , '%') or 
-				      writer like concat('%', #{keyword} , '%') 
+				<if test='key=="y"'>
+				where note_view = 'y'
 				</if>
-				
-				<if test='key=="2"'>
-				where title like concat('%', #{keyword} , '%')
+					
+				<if test='key=="n"'>
+				where note_view = 'n'
 				</if>
-				
-				<if test='key=="3"'>
-				where contents like concat('%', #{keyword} , '%')
-				</if>
-				
-				<if test='key=="4"'>
-				where title like concat('%', #{keyword} , '%') or
-				      contents like concat('%', #{keyword} , '%') 
-				</if>
-				
+
 			</if> 
 				) A
 		limit #{start}, #{pageSize}    
