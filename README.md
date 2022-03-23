@@ -47,4 +47,22 @@
 
 ## 220322
 
-- bootstrap관련 폴더 전부 삭제 (css, image폴더만 남김)
+- bootstrap관련 폴더 전부 삭제 (css, image폴더 제외)
+
+- favicon 생성![favicon](https://user-images.githubusercontent.com/95202440/159693720-f743a0b0-f73e-4a22-acee-6b6124b070cf.png)
+
+  
+
+## 220323
+
+- favicon 적용
+
+  (home.jsp)
+
+  ```javascript
+   <!-- Favicons -->
+  	<link href="/yourtoday/resources/img/favicon.ico" rel="icon">
+  ```
+
+  
+
